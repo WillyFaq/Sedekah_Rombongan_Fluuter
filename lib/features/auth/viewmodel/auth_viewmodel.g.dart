@@ -155,6 +155,136 @@ class _GetCurUserProviderElement
   String get token => (origin as GetCurUserProvider).token;
 }
 
+String _$getUserDonationsHash() => r'3c0441969bd7a51ff04ff90c3e36d8af58039a4c';
+
+/// See also [getUserDonations].
+@ProviderFor(getUserDonations)
+const getUserDonationsProvider = GetUserDonationsFamily();
+
+/// See also [getUserDonations].
+class GetUserDonationsFamily extends Family<AsyncValue<ListUserDonasi>> {
+  /// See also [getUserDonations].
+  const GetUserDonationsFamily();
+
+  /// See also [getUserDonations].
+  GetUserDonationsProvider call(
+    int page,
+  ) {
+    return GetUserDonationsProvider(
+      page,
+    );
+  }
+
+  @override
+  GetUserDonationsProvider getProviderOverride(
+    covariant GetUserDonationsProvider provider,
+  ) {
+    return call(
+      provider.page,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getUserDonationsProvider';
+}
+
+/// See also [getUserDonations].
+class GetUserDonationsProvider
+    extends AutoDisposeFutureProvider<ListUserDonasi> {
+  /// See also [getUserDonations].
+  GetUserDonationsProvider(
+    int page,
+  ) : this._internal(
+          (ref) => getUserDonations(
+            ref as GetUserDonationsRef,
+            page,
+          ),
+          from: getUserDonationsProvider,
+          name: r'getUserDonationsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getUserDonationsHash,
+          dependencies: GetUserDonationsFamily._dependencies,
+          allTransitiveDependencies:
+              GetUserDonationsFamily._allTransitiveDependencies,
+          page: page,
+        );
+
+  GetUserDonationsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.page,
+  }) : super.internal();
+
+  final int page;
+
+  @override
+  Override overrideWith(
+    FutureOr<ListUserDonasi> Function(GetUserDonationsRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetUserDonationsProvider._internal(
+        (ref) => create(ref as GetUserDonationsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        page: page,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<ListUserDonasi> createElement() {
+    return _GetUserDonationsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetUserDonationsProvider && other.page == page;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, page.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin GetUserDonationsRef on AutoDisposeFutureProviderRef<ListUserDonasi> {
+  /// The parameter `page` of this provider.
+  int get page;
+}
+
+class _GetUserDonationsProviderElement
+    extends AutoDisposeFutureProviderElement<ListUserDonasi>
+    with GetUserDonationsRef {
+  _GetUserDonationsProviderElement(super.provider);
+
+  @override
+  int get page => (origin as GetUserDonationsProvider).page;
+}
+
 String _$authViewmodelHash() => r'23b8099a16d1392da8e1ca3f2cba338eb3aab043';
 
 /// See also [AuthViewmodel].

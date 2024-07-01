@@ -8,6 +8,7 @@ import 'package:sedekah_rombongan_flutter/core/utils.dart';
 import 'package:sedekah_rombongan_flutter/core/widgets/load_more_button.dart';
 import 'package:sedekah_rombongan_flutter/core/widgets/loader.dart';
 import 'package:sedekah_rombongan_flutter/features/program/view/widgets/comment_card.dart';
+import 'package:sedekah_rombongan_flutter/features/program/view/widgets/comment_form.dart';
 import 'package:sedekah_rombongan_flutter/features/program/viewmodel/detail_program_viewmodel.dart';
 
 class CommentData extends ConsumerStatefulWidget {
@@ -31,14 +32,20 @@ class _CommentDataState extends ConsumerState<CommentData> {
     ref.listen(aminCommentProvider, (_, next) {
       next?.when(
         data: (data) {
-          // print(data);
+          bool nofound = true;
           for (int i = 0; i < commentList.length; i++) {
             if (commentList[i].id == data.id) {
               setState(() {
                 commentList[i] = data;
               });
+              nofound = false;
               break;
             }
+          }
+          if (nofound) {
+            setState(() {
+              commentList.insert(0, data);
+            });
           }
         },
         error: (error, st) {
@@ -50,22 +57,10 @@ class _CommentDataState extends ConsumerState<CommentData> {
 
     Widget dataw = resAsync.when(
       data: (progs) {
+        print("WHEN DATA ------------>");
         if (curpage != oldCurpage) {
           oldCurpage = curpage;
           commentList.addAll(progs.data);
-        } else {
-          // List<CommentModel> tmpCommentList = commentList;
-          // for (int i = 0; i < commentList.length; i++) {
-          //   for (int j = 0; j < progs.data.length; j++) {
-          //     print("${commentList[i].id} == ${progs.data[j].id}");
-          //     if (commentList[i].id == progs.data[j].id) {
-          //       commentList[i] = progs.data[j];
-          //       break;
-          //     }
-          //   }
-          // }
-          // commentList.clear();
-          // commentList.addAll(tmpCommentList);
         }
         if (commentList.isEmpty) {
           return notFound();
@@ -112,6 +107,9 @@ class _CommentDataState extends ConsumerState<CommentData> {
               padding: const EdgeInsets.all(15),
               child: dataw,
             ),
+          ),
+          CommentForm(
+            slug: slug,
           ),
         ],
       ),

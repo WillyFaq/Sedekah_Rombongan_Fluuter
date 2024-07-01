@@ -146,4 +146,33 @@ class DetailProgramRepository {
       return Left(AppFailure(e.toString()));
     }
   }
+
+  Future<Either<AppFailure, CommentModel>> goKomenOnly(
+      String slug, String isiKomentar, bool anonim, String token) async {
+    try {
+      String murl = "${ServerConstant.serverURL}/api/comments";
+      final response = await http.post(
+        Uri.parse(murl),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token,
+        },
+        body: jsonEncode(
+          {
+            'slug': slug,
+            'isi_komentar': isiKomentar,
+            'anonim': anonim,
+          },
+        ),
+      );
+      log(murl);
+      final resBodyMap = jsonDecode(response.body) as Map<String, dynamic>;
+      if (response.statusCode != 201) {
+        return Left(AppFailure("Donation Failed"));
+      }
+      return Right(CommentModel.fromMap(resBodyMap["data"]));
+    } catch (e) {
+      return Left(AppFailure(e.toString()));
+    }
+  }
 }

@@ -7,6 +7,7 @@ class CustomField extends StatelessWidget {
   final bool readOnly;
   final VoidCallback? onTap;
   final int? lines;
+  final TextInputType? inpType;
   const CustomField({
     super.key,
     required this.hintText,
@@ -15,6 +16,7 @@ class CustomField extends StatelessWidget {
     this.readOnly = false,
     this.onTap,
     this.lines = 1,
+    this.inpType = TextInputType.text,
   });
 
   @override
@@ -24,6 +26,7 @@ class CustomField extends StatelessWidget {
       readOnly: readOnly,
       controller: controller,
       maxLines: lines,
+      keyboardType: inpType,
       decoration: InputDecoration(
         hintText: hintText,
         contentPadding: const EdgeInsets.all(15),

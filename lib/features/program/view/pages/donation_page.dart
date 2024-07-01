@@ -181,42 +181,42 @@ class _DonationPageState extends ConsumerState<DonationPage> {
                 color: Pallete.whiteColor,
                 height: 68,
                 child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 2,
-                      horizontal: 6,
-                    ),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          print("OKED");
-                          int projectId = data.id;
-                          int jumlah = jumlahController.numberValue.toInt();
-                          String user = currentUser.token;
-                          ref.read(ayoDonasiProvider.notifier).goDonasi(
-                                projectId: projectId,
-                                jumlah: jumlah,
-                                anonim: sedekaholic,
-                                token: user,
-                                doa: doaController.text,
-                              );
-                        } else {
-                          showSnackBar(context, 'Missing fields!');
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          backgroundColor: Pallete.greenColor),
-                      child: Text(
-                        "Donasi - ${jumlahController.text}",
-                        style: const TextStyle(
-                          color: Pallete.whiteColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 2,
+                    horizontal: 6,
+                  ),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        int projectId = data.id;
+                        int jumlah = jumlahController.numberValue.toInt();
+                        String user = currentUser.token;
+                        ref.read(ayoDonasiProvider.notifier).goDonasi(
+                              projectId: projectId,
+                              jumlah: jumlah,
+                              anonim: sedekaholic,
+                              token: user,
+                              doa: doaController.text,
+                            );
+                      } else {
+                        showSnackBar(context, 'Missing fields!');
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4),
                         ),
+                        backgroundColor: Pallete.greenColor),
+                    child: Text(
+                      "Donasi - ${jumlahController.text}",
+                      style: const TextStyle(
+                        color: Pallete.whiteColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
                       ),
-                    )),
+                    ),
+                  ),
+                ),
               ),
             ),
           );

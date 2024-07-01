@@ -84,6 +84,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     CustomField(
                       hintText: 'Email',
                       controller: emailController,
+                      inpType: TextInputType.emailAddress,
                     ),
                     const SizedBox(height: 15),
                     CustomField(

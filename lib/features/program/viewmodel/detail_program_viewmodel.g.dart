@@ -574,7 +574,7 @@ class _AminkanProviderElement
   String get id => (origin as AminkanProvider).id;
 }
 
-String _$aminCommentHash() => r'7008f93758dafae361e5e1f73886251cced8dfcd';
+String _$aminCommentHash() => r'8c3e5657db0d3e2ed33df103d8ccd9b13dbb6b8d';
 
 /// See also [AminComment].
 @ProviderFor(AminComment)

@@ -67,121 +67,108 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
       resizeToAvoidBottomInset: false,
       body: isLoading
           ? const Loader()
-          : SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 15.0,
-                  right: 15.0,
-                  top: 15.0,
-                  bottom: 40.0,
-                ),
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Center(
-                        child: Image.asset(
-                          "assets/images/icon.png",
-                          width: 100,
-                          height: 100,
-                        ),
-                      ),
-                      const Text(
-                        'Register',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      const SizedBox(height: 30),
-                      CustomField(
-                        hintText: 'Nama',
-                        controller: namaController,
-                      ),
-                      const SizedBox(height: 15),
-                      CustomField(
-                        hintText: 'Email',
-                        controller: emailController,
-                      ),
-                      const SizedBox(height: 15),
-                      CustomField(
-                        hintText: 'Password',
-                        controller: passwordController,
-                        isObscureText: true,
-                      ),
-                      const SizedBox(height: 15),
-                      // CustomField(
-                      //   hintText: 'Nomor Telpon',
-                      //   controller: notelpController,
-                      // ),
-                      TextFormField(
-                        controller: notelpController,
-                        decoration: const InputDecoration(
-                          hintText: "Nomor Telpon",
-                          contentPadding: EdgeInsets.all(15),
-                        ),
-                        validator: (val) {
-                          if (val!.trim().isEmpty) {
-                            return "Nomor Telpon is missing!";
-                          }
-                          return null;
-                        },
-                        style: const TextStyle(fontSize: 12),
-                      ),
-                      const SizedBox(height: 15),
-                      CustomField(
-                        hintText: 'Alamat',
-                        controller: alamatController,
-                        lines: 4,
-                      ),
-                      const SizedBox(height: 20),
-                      AuthGradientButton(
-                        buttonText: 'Register',
-                        onTap: () async {
-                          if (formKey.currentState!.validate()) {
-                            await ref
-                                .read(authViewmodelProvider.notifier)
-                                .signUpUser(
-                                  name: namaController.text,
-                                  email: emailController.text,
-                                  password: passwordController.text,
-                                  nomorTelepon: notelpController.text,
-                                  alamat: alamatController.text,
-                                );
-                          } else {
-                            showSnackBar(context, 'Missing fields!');
-                          }
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginPage(),
-                            ),
-                          );
-                        },
-                        child: RichText(
-                          text: TextSpan(
-                            text: "Sudah Punya Akun? ",
-                            style: Theme.of(context).textTheme.titleMedium,
-                            children: const [
-                              TextSpan(
-                                text: "Login Sekarang",
-                                style: TextStyle(
-                                  color: Pallete.mainColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )
-                            ],
+          : Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Image.asset(
+                            "assets/images/icon.png",
+                            width: 100,
+                            height: 100,
                           ),
                         ),
-                      ),
-                    ],
+                        const Text(
+                          'Register',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(height: 30),
+                        CustomField(
+                          hintText: 'Nama',
+                          controller: namaController,
+                        ),
+                        const SizedBox(height: 15),
+                        CustomField(
+                          hintText: 'Email',
+                          controller: emailController,
+                          inpType: TextInputType.emailAddress,
+                        ),
+                        const SizedBox(height: 15),
+                        CustomField(
+                          hintText: 'Password',
+                          controller: passwordController,
+                          isObscureText: true,
+                        ),
+                        const SizedBox(height: 15),
+                        CustomField(
+                          hintText: 'Nomor Telpon',
+                          controller: notelpController,
+                          inpType: TextInputType.phone,
+                        ),
+                        const SizedBox(height: 15),
+                        CustomField(
+                          hintText: 'Alamat',
+                          controller: alamatController,
+                          lines: 4,
+                        ),
+                        const SizedBox(height: 20),
+                        AuthGradientButton(
+                          buttonText: 'Register',
+                          onTap: () async {
+                            if (formKey.currentState!.validate()) {
+                              await ref
+                                  .read(authViewmodelProvider.notifier)
+                                  .signUpUser(
+                                    name: namaController.text,
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                    nomorTelepon: notelpController.text,
+                                    alamat: alamatController.text,
+                                  );
+                            } else {
+                              showSnackBar(context, 'Missing fields!');
+                            }
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LoginPage(),
+                              ),
+                            );
+                          },
+                          child: RichText(
+                            text: TextSpan(
+                              text: "Sudah Punya Akun? ",
+                              style: Theme.of(context).textTheme.titleMedium,
+                              children: const [
+                                TextSpan(
+                                  text: "Login Sekarang",
+                                  style: TextStyle(
+                                    color: Pallete.mainColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

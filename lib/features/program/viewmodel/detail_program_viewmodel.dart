@@ -79,6 +79,25 @@ class AminComment extends _$AminComment {
     };
     log(val.toString());
   }
+
+  Future<void> goComment({
+    required String slug,
+    required String doa,
+    required bool anonim,
+    required String token,
+  }) async {
+    state = const AsyncValue.loading();
+    final res =
+        await _detailProgramRepository.goKomenOnly(slug, doa, anonim, token);
+    final val = switch (res) {
+      Left(value: final l) => state = AsyncValue.error(
+          l.message,
+          StackTrace.current,
+        ),
+      Right(value: final r) => state = AsyncValue.data(r),
+    };
+    log(val.toString());
+  }
 }
 
 @riverpod

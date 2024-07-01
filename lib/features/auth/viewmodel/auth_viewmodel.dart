@@ -5,6 +5,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sedekah_rombongan_flutter/core/models/user_model.dart';
 import 'package:sedekah_rombongan_flutter/core/providers/current_user_notifier.dart';
+import 'package:sedekah_rombongan_flutter/features/auth/models/list_user_donasi.dart';
 import 'package:sedekah_rombongan_flutter/features/auth/repositories/auth_local_repository.dart';
 import 'package:sedekah_rombongan_flutter/features/auth/repositories/auth_remote_repository.dart';
 
@@ -14,6 +15,19 @@ part 'auth_viewmodel.g.dart';
 Future<UserModel> getCurUser(GetCurUserRef ref, String token) async {
   final res =
       await ref.watch(authRemoteRepositoryProvider).getCurrentUserData(token);
+  return switch (res) {
+    Left(value: final l) => throw l.message,
+    Right(value: final r) => r,
+  };
+}
+
+@riverpod
+Future<ListUserDonasi> getUserDonations(
+    GetUserDonationsRef ref, int page) async {
+  final token =
+      ref.watch(currentUserNotifierProvider.select((user) => user!.token));
+  final res =
+      await ref.watch(authRemoteRepositoryProvider).getDonations(page, token);
   return switch (res) {
     Left(value: final l) => throw l.message,
     Right(value: final r) => r,

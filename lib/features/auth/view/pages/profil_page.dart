@@ -5,6 +5,7 @@ import 'package:sedekah_rombongan_flutter/core/providers/current_user_notifier.d
 import 'package:sedekah_rombongan_flutter/core/theme/app_pallete.dart';
 import 'package:sedekah_rombongan_flutter/core/utils.dart';
 import 'package:sedekah_rombongan_flutter/core/widgets/loader.dart';
+import 'package:sedekah_rombongan_flutter/features/auth/view/widgets/profile_accrodion.dart';
 import 'package:sedekah_rombongan_flutter/features/auth/viewmodel/auth_viewmodel.dart';
 import 'package:sedekah_rombongan_flutter/features/home/viewmodel/home_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,35 +13,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ProfilPage extends ConsumerWidget {
   const ProfilPage({super.key});
 
-  void handleActionClick(String value) {
-    switch (value) {
-      case "Ubah Profil":
-        print(value);
-        break;
-      case "Logout":
-        // Navigator.pushAndRemoveUntil(
-        //       context,
-        //       MaterialPageRoute(
-        //         builder: (context) => const HomePage(),
-        //       ),
-        //       (_) => false,
-        //     );
-        break;
-    }
-  }
-
   void logOut() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.clear();
-    print("LOGOUT!!!!!");
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // late UserModel currentUser;
-    final cu = ref.watch(currentUserNotifierProvider);
+    final token =
+        ref.watch(currentUserNotifierProvider.select((user) => user!.token));
     // print(cu);
-    final ci = ref.watch(getCurUserProvider(cu!.token));
+    final ci = ref.watch(getCurUserProvider(token));
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -122,6 +106,9 @@ class ProfilPage extends ConsumerWidget {
                   _genField("Nomor Telepon", currentUser.nomorTelepon),
                   const SizedBox(height: 20),
                   _genField("Alamat", currentUser.alamat),
+                  const SizedBox(height: 40),
+                  ProfileAccrodion(currentUser: currentUser),
+                  const SizedBox(height: 80),
                 ],
               ),
             ),

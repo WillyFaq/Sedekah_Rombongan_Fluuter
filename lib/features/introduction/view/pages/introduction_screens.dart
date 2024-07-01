@@ -1,15 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sedekah_rombongan_flutter/core/theme/app_pallete.dart';
-import 'package:sedekah_rombongan_flutter/features/auth/view/pages/login_page.dart';
+import 'package:sedekah_rombongan_flutter/features/home/view/pages/home_page.dart';
+import 'package:sedekah_rombongan_flutter/features/introduction/viewmodel/intro_viewmodel.dart';
 
-class IntroductionScreens extends StatelessWidget {
+class IntroductionScreens extends ConsumerWidget {
   const IntroductionScreens({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       // appBar: AppBar(),
       body: IntroductionScreen(
@@ -108,16 +110,13 @@ class IntroductionScreens extends StatelessWidget {
           if (kDebugMode) {
             print("Done Clicked");
           }
-          // Navigator.pushAndRemoveUntil(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => const LoginPage()),
-          //   (Route<dynamic> route) => false,
-          // );
-          Navigator.push(
+          ref.read(introViewmodelProvider.notifier).setIntro(true);
+          Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => const LoginPage(),
+              builder: (context) => const HomePage(),
             ),
+            (r) => false,
           );
         },
         scrollPhysics: const ClampingScrollPhysics(),

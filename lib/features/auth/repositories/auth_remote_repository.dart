@@ -7,6 +7,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sedekah_rombongan_flutter/core/utils.dart';
+import 'package:sedekah_rombongan_flutter/features/auth/models/list_user_donasi.dart';
 
 part 'auth_remote_repository.g.dart';
 
@@ -120,6 +121,29 @@ class AuthRemoteRepository {
       return Right(
         data,
       );
+    } catch (e) {
+      return Left(AppFailure(e.toString()));
+    }
+  }
+
+  Future<Either<AppFailure, ListUserDonasi>> getDonations(
+      int page, String token) async {
+    try {
+      String gurl = "${ServerConstant.serverURL}/api/donations?page=$page";
+      final res = await http.get(
+        Uri.parse(gurl),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token,
+        },
+      );
+      log(gurl);
+      var resBodyMap = jsonDecode(res.body) as Map<String, dynamic>;
+      if (res.statusCode != 200) {
+        return Left(AppFailure(resBodyMap['errors'].toString()));
+      }
+      // log(ListComment.fromMap(resBodyMap).toString());
+      return Right(ListUserDonasi.fromMap(resBodyMap));
     } catch (e) {
       return Left(AppFailure(e.toString()));
     }
