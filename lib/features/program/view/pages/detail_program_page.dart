@@ -81,36 +81,40 @@ class _DetailProgramPageState extends ConsumerState<DetailProgramPage> {
                     vertical: 2,
                     horizontal: 20,
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  child: Wrap(
                     children: [
-                      ShareButton(
-                        onTap: () async {
-                          String shr =
-                              "${detProg.judul}\nDonasi Terkumpul ${detProg.idrJumlah} dari ${detProg.targetDana}\n";
-                          await Share.share(
-                              '$shr \nAyo Donasi Sekarang! \n https://sedekahrombongan.com/campaign/$slug',
-                              subject: 'Ayo Donasi Sekarang!');
-                        },
-                      ),
-                      DonationButton(
-                        onTap: () {
-                          if (currentUser == null) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const LoginPage(),
-                              ),
-                            );
-                          } else {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const DonationPage(),
-                              ),
-                            );
-                          }
-                        },
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ShareButton(
+                            onTap: () async {
+                              String shr =
+                                  "${detProg.judul}\nDonasi Terkumpul ${detProg.idrJumlah} dari ${detProg.targetDana}\n";
+                              await Share.share(
+                                  '$shr \nAyo Donasi Sekarang! \n https://sedekahrombongan.com/campaign/$slug',
+                                  subject: 'Ayo Donasi Sekarang!');
+                            },
+                          ),
+                          DonationButton(
+                            onTap: () {
+                              if (currentUser == null) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const LoginPage(),
+                                  ),
+                                );
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const DonationPage(),
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),

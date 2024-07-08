@@ -57,7 +57,6 @@ class _CommentDataState extends ConsumerState<CommentData> {
 
     Widget dataw = resAsync.when(
       data: (progs) {
-        print("WHEN DATA ------------>");
         if (curpage != oldCurpage) {
           oldCurpage = curpage;
           commentList.addAll(progs.data);

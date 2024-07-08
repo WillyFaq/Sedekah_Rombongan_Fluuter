@@ -66,7 +66,7 @@ class CommentCard extends ConsumerWidget {
                     backgroundColor: Pallete.whiteColor,
                   ),
                   child: SizedBox(
-                    width: 136,
+                    width: double.infinity,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [

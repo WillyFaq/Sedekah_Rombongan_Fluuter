@@ -37,7 +37,6 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // final currentUser = ref.watch(currentUserNotifierProvider);
     final isIntro = ref.watch(introRepositoryProvider);
-    print(isIntro.isIntro());
     return MaterialApp(
       title: 'Sedekah Rombongan',
       theme: AppTheme.lightThemeMode,
