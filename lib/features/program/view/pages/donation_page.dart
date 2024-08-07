@@ -191,15 +191,20 @@ class _DonationPageState extends ConsumerState<DonationPage> {
                         int projectId = data.id;
                         int jumlah = jumlahController.numberValue.toInt();
                         String user = currentUser.token;
-                        ref.read(ayoDonasiProvider.notifier).goDonasi(
-                              projectId: projectId,
-                              jumlah: jumlah,
-                              anonim: sedekaholic,
-                              token: user,
-                              doa: doaController.text,
-                            );
+                        if (jumlah >= 10000 && jumlah < (1e12).floor()) {
+                          ref.read(ayoDonasiProvider.notifier).goDonasi(
+                                projectId: projectId,
+                                jumlah: jumlah,
+                                anonim: sedekaholic,
+                                token: user,
+                                doa: doaController.text,
+                              );
+                        } else {
+                          showSnackBar(
+                              context, 'Mohon Maaf minimal donasi 10.000');
+                        }
                       } else {
-                        showSnackBar(context, 'Missing fields!');
+                        showSnackBar(context, 'Terjadi Kesalahan');
                       }
                     },
                     style: ElevatedButton.styleFrom(

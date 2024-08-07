@@ -184,7 +184,7 @@ class ThankPage extends ConsumerWidget {
           ),
           backgroundColor: Pallete.greenColor),
       child: const Text(
-        "Donwload Invoice",
+        "Donwload Bukti Donasi",
         style: TextStyle(
           color: Pallete.whiteColor,
           fontWeight: FontWeight.bold,

@@ -79,7 +79,7 @@ class _DonationInputState extends State<DonationInput> {
                 return "nominal is missing!";
               }
               if (widget.jmlController.numberValue < 10000) {
-                return "Mohon maaf,";
+                return "Mohon Maaf minimal donasi 10.000,";
               }
               return null;
             },
